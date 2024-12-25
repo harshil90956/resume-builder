@@ -5,9 +5,10 @@ import { Logo } from '../assets';
 import { AnimatePresence, motion } from "framer-motion";
 import { PuffLoader } from 'react-spinners';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { FadeInOutWithOpacity, slideUpDownMenu } from '../animations';
+import { FadeInOutWithOpacity,  } from '../animations';
 import { useQueryClient } from 'react-query';
 import { auth } from '../config/firebase.config';
+import { adminIds } from '../utils/helpers';
 
 const Header = () => {
     const { data, isLoading } = useUser();
@@ -65,39 +66,69 @@ const Header = () => {
 
                                 {/* Dropdown Menu */}
                                 <AnimatePresence>
-                                    {isMenu && (
-                                        <motion.div {...slideUpDownMenu} onMouseLeave={() => setisMenu(false)}
-                                            className="absolute px-4 py-3 rounded-md bg-white right-0 top-14 flex flex-col items-center justify-start gap-3 w-64 pt-12"
-                                        >
-                                            {data?.photoURL ? (
-                                                <div className="w-20 h-20 rounded-full relative flex flex-col items-center justify-center">
-                                                    <img
-                                                        src={data?.photoURL}
-                                                        alt="User Profile"
-                                                        referrerPolicy="no-referrer"
-                                                        className="w-full h-full object-cover rounded-full"
-                                                    />
-                                                </div>
-                                            ) : (
-                                                <div className="w-20 h-20 rounded-full relative flex items-center justify-center bg-blue-700 shadow-md">
-                                                    <p className="text-lg text-white cursor-pointer">{data?.email[0]}</p>
-                                                </div>
-                                            )}
-                                            {data?.displayName && (<p className="text-3xl text-txtDark cursor-pointer">{data?.displayName}</p>)}
+  {isMenu && (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9, y: -20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9, y: -20 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      onMouseLeave={() => setisMenu(false)}
+      className="absolute px-6 py-4 rounded-lg bg-white shadow-lg right-0 top-14 flex flex-col items-center justify-start gap-4 w-72"
+    >
+      {/* User Profile Section */}
+      <div className="flex flex-col items-center justify-center gap-2">
+        {data?.photoURL ? (
+          <div className="w-20 h-20 rounded-full overflow-hidden shadow-md">
+            <img
+              src={data?.photoURL}
+              alt="User Profile"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ) : (
+          <div className="w-20 h-20 rounded-full flex items-center justify-center bg-blue-700 shadow-md">
+            <p className="text-lg text-white font-bold">
+              {data?.email?.[0]?.toUpperCase()}
+            </p>
+          </div>
+        )}
+        {data?.displayName && (
+          <p className="text-lg text-gray-800 font-medium">{data?.displayName}</p>
+        )}
+      </div>
 
-                                            {/* Menu options */}
-                                            <div className='w-full flex-col items-start flex gap-8 pt-6'>
-                                                <Link className='text-txtLight hover:text-txtdark text-base whitespace-nowrap' to={"/profile"}>MY Account</Link>
-                                                <Link className='text-txtLight hover:text-txtdark text-base whitespace-nowrap' to={"/template/create"}>ADD new template</Link>
-                                                <div className='w-full px-2 py-2 border-gray-300 flex items-center justify-between group'>
-                                                    <p className="group-hover:text-txtdark text-txtLight cursor-pointer" onClick={signOutUser}>Sign out</p>
-                                                    <AiOutlineLogout className="group-hover:text-txtdark text-txtLight" />
-                                                </div>
-                                            </div>
+      {/* Menu Options */}
+      <div className="w-full flex flex-col items-start gap-4">
+        <Link
+          to="/profile"
+          className="text-gray-600 hover:text-gray-900 text-base font-medium"
+        >
+          My Account
+        </Link>
 
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+        {
+            adminIds.includes(data?.uid) && (
+                <Link
+                to="/template/create"
+                className="text-gray-600 hover:text-gray-900 text-base font-medium"
+              >
+                Add New Template
+              </Link>)
+
+        }
+       
+        <div
+          className="w-full flex items-center justify-between cursor-pointer hover:text-gray-900 text-gray-600"
+          onClick={signOutUser}
+        >
+          <p className="text-base font-medium">Sign Out</p>
+          <AiOutlineLogout className="text-lg" />
+        </div>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
                             </motion.div>
                         ) : (
                             <Link to="/auth">

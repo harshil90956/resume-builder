@@ -4,7 +4,7 @@ import { getUserDetails } from "../api";
 
 const useUser = () =>{
     const {data,isLoading,isError,refetch} = useQuery(
-        "user",
+        "users",
         async () =>{
             try {
                 const userDetails = await getUserDetails();
