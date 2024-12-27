@@ -1,4 +1,4 @@
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase.config";
 
 export const getUserDetails = () => {
@@ -26,3 +26,32 @@ export const getUserDetails = () => {
     });
   });
 };
+
+export const getTemplates = () => {
+  return new Promise((resolve, reject) => {
+    const templateQuery = query(
+      collection(db, "templates"),
+      // Corrected "acs" to "asc"
+    );
+
+    const unsubscribe = onSnapshot(
+      templateQuery,
+      (querySnap) => {
+        if (!querySnap.empty) {
+          const templates = querySnap.docs.map((doc) => doc.data());
+          resolve(templates);
+        } else {
+          console.warn("No documents found in the templates collection.");
+          resolve([]); // Return an empty array if no documents
+        }
+      },
+      (error) => {
+        console.error("Error fetching templates:", error);
+        reject(error);
+      }
+    );
+
+    return unsubscribe; // Return the unsubscribe function for cleanup
+  });
+};
+
