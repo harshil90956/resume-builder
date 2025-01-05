@@ -16,3 +16,28 @@ body{
     .auth-section{
         @apply w-full h-screen overflow-hidden flex flex-col items-start justify-start gap-6;}
 }
+
+/* Parent container */
+.parent-container {
+    width: 100%;
+    overflow-x: hidden; /* Prevent scrollbars from appearing */
+  }
+  
+  /* Hide scrollbars while keeping scroll functionality */
+  .hide-scrollbar {
+    overflow-y: hidden; /* Prevent vertical overflow */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  /* Child items should not stretch beyond parent width */
+  .filter-item {
+    flex-shrink: 0; /* Prevent shrinking */
+    max-width: 100%; /* Restrict maximum width */
+  }
+  

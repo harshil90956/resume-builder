@@ -5,7 +5,7 @@ import { HomeContainer } from '../containers'
 import CreateTemplate from './CreateTemplate'
 import UserProfile from './UserProfile'
 import CreateResume from './CreateResume'
-import TemplateDesignPin from './TemplateDesignPin'
+import TemplateDesignPinDetails from './TemplateDesignPinDetails'
 
 const HomeScreen = () => {
   return (
@@ -20,7 +20,7 @@ const HomeScreen = () => {
                   <Route path='/template/create' element={<CreateTemplate/>}/>
                   <Route path='/profile/:uid' element={<UserProfile/>}/>
                   <Route path='/resume/*' element={<CreateResume/>}/>
-                  <Route path='/resumeDetails/:templateID' element={<TemplateDesignPin/>}/>
+                  <Route path='/resumeDetails/:templateID' element={<TemplateDesignPinDetails/>}/>
              </Routes>
             </Suspense>
                {/* custon routes */}

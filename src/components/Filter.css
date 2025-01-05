@@ -1,0 +1,37 @@
+/* Parent container */
+.parent-container {
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+
+    margin-top: -20px; /* Adjust margin for upward positioning */
+    position: relative; /* Ensure child elements can be absolutely positioned */
+}
+
+/* Hide scrollbars while keeping scroll functionality */
+.hide-scrollbar {
+    overflow-y: hidden; /* Prevent vertical overflow */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Child items should not stretch beyond parent width */
+.filter-item {
+    flex-shrink: 0; /* Prevent shrinking */
+    max-width: 100%; /* Restrict maximum width */
+}
+
+.group .absolute {
+    position: absolute;
+    top: -12px; /* Adjust tooltip's Y position */
+    left: -2px; /* Ensure tooltip appears above other elements */
+    background: white;
+    padding: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+    transform: translateY(-10px); /* Optional: tweak Y position */
+}

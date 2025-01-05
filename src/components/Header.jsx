@@ -9,17 +9,27 @@ import { FadeInOutWithOpacity,  } from '../animations';
 import { useQueryClient } from 'react-query';
 import { auth } from '../config/firebase.config';
 import { adminIds } from '../utils/helpers';
+import useFilters from '../hooks/useFilters';
 
 const Header = () => {
     const { data, isLoading } = useUser();
     const [isMenu, setisMenu] = useState(false);
     const queryClient = useQueryClient();
+    const {data:filterData} = useFilters()
 
     const signOutUser = async () => {
         await auth.signOut().then(() => {
             queryClient.setQueryData("user", null);
         });
     };
+
+    const handleSearchTerm = (e) => {
+      queryClient.setQueryData("globalFilter",{...queryClient.getQueryData("globalFilter"),searchTerm:e.target.value});
+    }
+
+    const clearFilter = () => {
+      queryClient.setQueryData("globalFilter",{...queryClient.getQueryData("globalFilter"),searchTerm:""});
+    }
 
     return (
         <header className="w-full flex items-center justify-between px-4 py-3 lg:px-8 border-b border-gray-300 bg-bgPrimary z-50 sticky top-0">
@@ -31,10 +41,19 @@ const Header = () => {
             {/* Search Input */}
             <div className="flex-1 border border-gray-300 px-4 py-1 rounded-b-md flex items-center justify-center bg-gray-200">
                 <input
+                onChange={handleSearchTerm}
+                value={filterData?.searchTerm || ""}
                     type="text"
                     placeholder="Search here..."
                     className="flex-1 h-8 px-4 bg-transparent text-base font-semibold outline-none border-none"
                 />
+                {
+                  <AnimatePresence>
+                  {filterData?.searchTerm && ( <motion.div onClick={clearFilter} {...FadeInOutWithOpacity} className="w-8 h-8 bg-gray-300 rounded-md cursor-pointer active:scale-95 duration-150 flex items-center justify-center">
+                       <p className='text-2xl text-black'>x</p>
+                    </motion.div>)}
+                  </AnimatePresence>
+                }
             </div>
 
             {/* Add space between Search Input and Profile Section */}
@@ -101,7 +120,7 @@ const Header = () => {
       {/* Menu Options */}
       <div className="w-full flex flex-col items-start gap-4">
         <Link
-          to="/profile"
+          to={`/profile/${data?.uid}`}
           className="text-gray-600 hover:text-gray-900 text-base font-medium"
         >
           My Account

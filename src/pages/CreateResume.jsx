@@ -1,8 +1,18 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { TemplateData } from '../utils/helpers'
 
 const CreateResume = () => {
   return (
-    <div>CreateResume</div>
+    <div className='w-full flex flex-col items-center justify-start py-4' >
+      <Routes>
+        {
+          TemplateData.map(template =>(
+            <Route key={template?.id} path={`/${template.name}`} Component={template.component} />
+          ))
+        }
+      </Routes>
+    </div>
   )
 }
 
