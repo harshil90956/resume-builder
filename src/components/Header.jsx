@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useUser from '../hooks/useUser';
 import { Link } from 'react-router-dom';
-import { Logo } from '../assets';
+import { Logo, Logo2 } from '../assets';
 import { AnimatePresence, motion } from "framer-motion";
 import { PuffLoader } from 'react-spinners';
 import { AiOutlineLogout } from 'react-icons/ai';
@@ -35,7 +35,7 @@ const Header = () => {
         <header className="w-full flex items-center justify-between px-4 py-3 lg:px-8 border-b border-gray-300 bg-bgPrimary z-50 sticky top-0">
             {/* Logo */}
             <Link to="/" className="w-12 h-auto object-contain mr-4">
-                <img src={Logo} alt="Logo" />
+                <img src={Logo2} alt="Logo" />
             </Link>
 
             {/* Search Input */}

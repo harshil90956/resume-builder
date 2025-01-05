@@ -40,11 +40,11 @@ const AuthButtonWithProvider = ({ Icon, label, provider, className }) => {
   return (
     <div
       onClick={handleClick}
-      className={`w-full px-4 py-3 rounded-md border-2 border-blue-700 flex items-center justify-between cursor-pointer group hover:bg-blue-700 active:scale-95 duration-150 hover:shadow-md ${className}`}
+      className={`w-full px-4 py-3 rounded-lg border-2 border-blue-600 flex items-center justify-between cursor-pointer group hover:bg-blue-600 active:scale-95 transition duration-150 ease-in-out hover:shadow-lg ${className}`}
     >
-      <Icon className="text-txtPrimary text-xl group-hover:text-white" />
-      <p className="text-txtPrimary text-lg group-hover:text-white">{label}</p>
-      <FaChevronRight className="text-txtPrimary text-base group-hover:text-white" />
+      <Icon className="text-blue-600 text-xl group-hover:text-white transition duration-150 ease-in-out" />
+      <p className="text-blue-600 text-lg group-hover:text-white transition duration-150 ease-in-out">{label}</p>
+      <FaChevronRight className="text-blue-600 text-base group-hover:text-white transition duration-150 ease-in-out" />
     </div>
   );
 };

@@ -27,7 +27,7 @@ const Authentication = () => {
 
       {/* Main section */}
       <div className="w-full flex flex-1 flex-col items-center justify-center gap-6">
-        <h1 className="text-3xl lg:text-4xl text-blue-700">Welcome to Expresume</h1>
+        <h1 className="text-3xl lg:text-4xl text-blue-700">Welcome to MyResume</h1>
         <p className="text-base text-gray-600">express way to create resume</p>
         <h2 className="text-2xl text-gray-600">Authenticate</h2>
 
