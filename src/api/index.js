@@ -15,6 +15,7 @@ export const getUserDetails = () => {
           setDoc(doc(db,"users",userData?.uid),userData).then(()=>{
             resolve(userData);
           })
+          
         }
        });
        return unsubscribe

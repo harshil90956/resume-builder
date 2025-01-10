@@ -14,12 +14,10 @@ const Filter = () => {
     const queryclient =  useQueryClient()
 
     const handleFilterValue = (value) => {
-        console.log(value);
-        // const previosState = queryClient.getQueryData("globalFilter");
-        // const updatedState = {...previosState,searchTerm:value}
-        // queryClient.setQueryData("globalFilter",updatedState)
-        queryclient.setQueryData("globalFilter",{...queryclient.getQueryData("globalFilter"),searchTerm:value});
-
+        queryclient.setQueryData("globalFilter", {
+            ...queryclient.getQueryData("globalFilter"),
+            searchTerm: value
+        });
     }
 
     const clearFilter = () => {

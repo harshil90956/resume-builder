@@ -8,7 +8,7 @@ import { useQuery } from 'react-query';
 import { getSavedResumes } from '../api';
 
 const UserProfile = () => {
-  const { data: user, isLoading: userLoading } = useUser(); // Assuming `useUser` provides loading state
+  const { data: user, isLoading: userLoading } = useUser();
   const [activeTab, setActiveTab] = useState('collections');
   const {
     data: templates,
@@ -20,11 +20,11 @@ const UserProfile = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user && !userLoading) {
-  //     navigate('/auth', { replace: true });
-  //   }
-  // }, [user, userLoading, navigate]);
+  useEffect(() => {
+    if (!user && !userLoading) {
+      navigate('/auth', { replace: true });
+    }
+  }, [user, userLoading, navigate]);
 
   
   if (userLoading && tempIsLoading) {
@@ -32,7 +32,7 @@ const UserProfile = () => {
   }
 
   if (!user) {
-    return null; // Avoid rendering if the user data is not available
+    return null; 
   }
   
   return (

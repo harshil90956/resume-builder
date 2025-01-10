@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useUser from '../hooks/useUser';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Logo, Logo2 } from '../assets';
 import { AnimatePresence, motion } from "framer-motion";
 import { PuffLoader } from 'react-spinners';
@@ -15,16 +15,22 @@ const Header = () => {
     const { data, isLoading } = useUser();
     const [isMenu, setisMenu] = useState(false);
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
     const {data:filterData} = useFilters()
 
     const signOutUser = async () => {
         await auth.signOut().then(() => {
             queryClient.setQueryData("user", null);
+            navigate("/auth",{replace:true}); // Redirect to home page after sign out
         });
     };
 
     const handleSearchTerm = (e) => {
-      queryClient.setQueryData("globalFilter",{...queryClient.getQueryData("globalFilter"),searchTerm:e.target.value});
+        const searchTerm = e.target.value.toLowerCase();
+        queryClient.setQueryData("globalFilter", {
+            ...queryClient.getQueryData("globalFilter"),
+            searchTerm
+        });
     }
 
     const clearFilter = () => {
